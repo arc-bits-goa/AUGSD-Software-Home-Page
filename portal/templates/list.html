@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=1024">
+    <title>AUGSD BITS Goa</title>
+
+    <!-- CSS  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    {% load static %}
+    <link href="{% static 'list.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+	<!-- <style>
+		div.ex2 {
+			background-color: lightblue;
+			height: 40px;
+			width: 200px;  
+			overflow-y: hidden;
+	  	}
+
+		  .bttn:hover {
+			/* background-color: #061d1c; */
+			color: rgb(21, 19, 124);
+			}
+			.bttn2:hover {
+			/* background-color: #061d1c; */
+			background-color: rgb(182, 157, 16) !important;
+			}
+			.bttn3:hover {
+			/* background-color: #061d1c; */
+			color: rgb(8, 36, 68) !important;
+			}
+	</style> -->
+</head>
+
+<body>
+<div class="container-fluid">
+	<nav>
+		<div class="nav-wrapper" style="background-color: #0c1525;">
+		    <a href="#" class="brand-logo navbttn" style="padding-left: 30px; font-size: 1.7em;">AUGSD SOFTWARE PORTAL</a>
+    	</div>
+	</nav>
+
+    <br>
+
+    <table class="container">
+        <thead>
+            <tr>
+                <th width="40%" ><h1>WebPortal</h1></th>
+                <th width="60%"><h1>Link</h1></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td style="font-size: 1.3em;" class="modal-trigger" href="#{{project.id}}" id={{project.id}}>{{ project.name }}</td>
+                <td style="font-size: 1.1em;" ><a class="bttn3" href={{project.link}}>{{project.link}}</a></td>
+            </tr>
+
+            <div id="{{project.id}}" class="modal" style="width: 50%; height: 50%;">
+                <div class="modal-content">
+                  <h4>{{project.name}}</h4>
+                  <br>
+                  <br>
+                  <div class="para">{{project.description}}</div>
+                </div>
+				<div id="outer">
+	                <div class="modal-footer" style="position: absolute; bottom: 0;">
+					  <a href={{project.repo_link}} class="button btn" style="margin-right: 15px; background-color: black;"><i class="fa fa-github"></i></button>
+					  {% if project.Add_repo_link %}
+					  <a href={{project.repo_link2}} class="button btn" style="margin-right: 15px; background-color: black;"><i class="fa fa-github"></i></button>
+				      {% endif %}
+					  <a href="#" class="modal-close button btn" style="color: rgb(7, 0, 24); background-color: rgb(0, 0, 0);"><i class="material-icons" style="color: white;">clear</i></a>
+					</div>
+				</div>
+              </div>
+          
+            {% endfor %}
+        </tbody>
+    </table>
+
+	<br>
+	<br>
+	<table class="container">
+        <thead>
+            <tr>
+                <th width="40%" ><h1>Scripts</h1></th>
+                <th width="60%"><h1>Link</h1></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for script in scripts %}
+            <tr>
+                <td style="font-size: 1.3em;" class="modal-trigger" href="#{{script.id}}" id={{script.id}}>{{ script.name }}</td>
+                <td style="font-size: 1.1em;" ><a class="bttn3" href={{script.link}}>{{script.link}}</a></td>
+            </tr>
+
+            <div id="{{script.id}}" class="modal" style="width: 50%; height: 50%;">
+                <div class="modal-content">
+                  <h4>{{script.name}}</h4>
+                  <br>
+                  <br>
+                  <div class="para">{{script.description}}</div>
+                </div>
+				<div id="outer">
+	                <div class="modal-footer" style="position: absolute; bottom: 0;">
+					  <a href={{script.repo_link}} class="button btn" style="margin-right: 15px; background-color: black;"><i class="fa fa-github"></i></button>
+					  {% if script.Add_repo_link %}
+					  <a href={{script.repo_link2}} class="button btn" style="margin-right: 15px; background-color: black;"><i class="fa fa-github"></i></button>
+					  {% endif %}
+    	              <a href="#" class="modal-close button btn" style="color: rgb(7, 0, 24); background-color: rgb(0, 0, 0);"><i class="material-icons" style="color: white;">clear</i></a>
+					</div>
+				</div>
+              </div>
+          
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+    <br>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% load static %}
+    <script type="text/javascript" src="{% static 'materialize.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.modal').modal();
+        });
+    </script>
+
+</body>
+
+</html>
+
+
+
+<!-- <div class="center-column">
+
+	<form method="POST" action="/">
+		{% csrf_token %}
+		{{form.title}}
+		<input class="btn btn-info" type="submit" name="Create Task">
+	</form>
+
+	<div class="todo-list">
+
+	{% for task in tasks %}
+		<div class="item-row">
+			<a class="btn btn-sm btn-info" href="{% url 'update_task' task.id %}">Update</a>
+			<a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}">Delete</a>
+
+			{% if task.complete == True %}
+			<strike>{{task}}</strike>
+			{% else %}
+			<span>{{task}}</span>
+			{% endif %}
+		</div>
+	{% endfor %}
+	</div>
+</div> -->

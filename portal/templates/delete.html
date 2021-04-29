@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=1024">
+    <title>AUGSD BITS Goa</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+<body>
+    <nav>
+		<div class="nav-wrapper">
+		  <a href="#" class="brand-logo">Projects Portal</a>
+		</div>
+	  </nav>
+
+	  <div class="card">
+		<div class="card-content">
+			<span class="card-title">Delete Projects</span>
+			<div class="col-md-12">
+				<p>Are you sure you want to delete "{{item}}"?</p>
+
+				<div class = "row">
+					<div class="col-xs-4">
+						<a href="{% url 'list' %}" ><button class="btn btn-block bg-green waves-effect">Cancel</button></a>
+					</div>
+				</div>
+				
+				<div class="row">
+					<form method="POST" action="">
+						{% csrf_token %}
+						<div class="col-xs-4">
+							<button class="btn btn-block bg-green waves-effect" type="submit">Delete</button>
+						</div>
+					</form>
+				</div>
+			</div> 
+		</div>
+	</div>
+</body>
+</html>
